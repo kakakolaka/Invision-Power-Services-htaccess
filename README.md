@@ -1,8 +1,6 @@
 # Invision Power Services (IPS) Optimized .htaccess
 ### Comprehensive .htaccess Configuration for Enhanced Security and Performance
 
-#### Description:
-
 This repository hosts a comprehensive `.htaccess` configuration file designed to maximize the security, performance, and efficiency of your Apache web server. By implementing advanced directives and optimizations, this configuration ensures that your website operates smoothly, remains secure, and adheres to best practices.
 
 ### Key Features
