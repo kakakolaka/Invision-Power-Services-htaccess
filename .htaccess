@@ -1,3 +1,54 @@
+# The <IfModule mod_php.c> directive is used to apply settings only if the mod_php.c module is enabled.
+# This module is responsible for handling PHP on the server.
+# The following configurations set various PHP performance and security settings.
+<IfModule mod_php.c>
+    # PHP memory limits and input settings
+    # These settings define the memory limits and maximum input parameters allowed by PHP scripts.
+    php_value memory_limit 512M
+    php_value max_execution_time 3600
+    php_value max_input_time 3600
+    php_value max_input_vars 10000
+    php_value upload_max_filesize 128M
+    php_value post_max_size 256M
+    
+    # PHP opcode cache settings
+    # These settings configure the opcode cache to improve performance by caching compiled scripts.
+    php_value opcache.enable 1
+    php_value opcache.memory_consumption 256
+    php_value opcache.interned_strings_buffer 16
+    php_value opcache.max_accelerated_files 10000
+    php_value opcache.revalidate_freq 2
+    php_value opcache.save_comments 1
+    php_value opcache.fast_shutdown 1
+    php_value opcache.enable_cli 0
+    
+    # Enable output compression and set compression level
+    # These settings enable and configure output compression to reduce the size of served content.
+    php_value zlib.output_compression On
+    php_value zlib.output_compression_level 4
+    
+    # PHP error reporting and logging settings
+    # These settings configure how PHP handles error reporting and logging.
+    php_value error_reporting E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE
+    php_value log_errors On
+    php_value display_errors Off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    # Enable the rewrite engine and set the base URL
+    RewriteEngine On
+    RewriteBase /
+
+    # Ensure HTTPS is enabled
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Redirect requests for non-existent files and directories to index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L]
+</IfModule>
+
 # Disable directory listings, CGI execution, and multi-view options
 Options -Indexes -ExecCGI -MultiViews
 
@@ -6,22 +57,9 @@ Options -Indexes -ExecCGI -MultiViews
     Require all denied
 </FilesMatch>
 
-# Enable the rewrite engine and set the base URL
-RewriteEngine On
-RewriteBase /
-
-# Ensure HTTPS is enabled
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-# Redirect requests for non-existent files and directories to index.php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.php [L]
-
 # Enable compression for specified text and application types
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript
     BrowserMatch ^Mozilla/4 gzip-only-text/html
     BrowserMatch ^Mozilla/4\.0[678] no-gzip
     BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
@@ -52,37 +90,10 @@ RewriteRule ^ index.php [L]
 
 # Set security headers to improve security
 <IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
     Header always append X-Frame-Options SAMEORIGIN
-    Header set X-Content-Type-Options nosniff
     Header set Referrer-Policy "no-referrer-when-downgrade"
-</IfModule>
-
-# Configure PHP settings for performance and security
-<IfModule mod_php7.c>
-    # PHP memory limits and input settings
-    php_value memory_limit 512M
-    php_value max_execution_time 3600
-    php_value max_input_time 3600
-    php_value max_input_vars 10000
-    php_value upload_max_filesize 128M
-    php_value post_max_size 256M
-    
-    # PHP opcode cache settings
-    php_value opcache.enable 1
-    php_value opcache.memory_consumption 256
-    php_value opcache.interned_strings_buffer 16
-    php_value opcache.max_accelerated_files 10000
-    php_value opcache.revalidate_freq 2
-    php_value opcache.save_comments 1
-    php_value opcache.fast_shutdown 1
-    php_value opcache.enable_cli 0
-    
-    # Enable output compression and set compression level
-    php_value zlib.output_compression On
-    php_value zlib.output_compression_level 4
-    
-    # PHP error reporting and logging settings
-    php_value error_reporting E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_NOTICE
-    php_value log_errors On
-    php_value display_errors Off
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 </IfModule>
