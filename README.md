@@ -23,7 +23,7 @@ This repository contains a carefully crafted `.htaccess` file designed to enhanc
 
 ### Usage
 
-To use this configuration, simply replace or merge it with your existing `.htaccess` file. Ensure that your Apache server has the required modules (`mod_rewrite`, `mod_deflate`, `mod_expires`, `mod_headers`, and `mod_php7`) enabled for these directives to work.
+To use this configuration, simply replace or merge it with your existing `.htaccess` file. Ensure that your Apache server has the required modules (`mod_php`, `mod_rewrite`, `mod_expires`, `mod_headers`, and `mod_deflate`) enabled for these directives to work.
 
 ### Contributions
 
