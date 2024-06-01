@@ -1,5 +1,7 @@
 # Optimized .htaccess Configuration for Enhanced Security and Performance
 
+![htaccess](https://github.com/ishayanabad/IPS-htaccess/assets/171403530/3463f58a-222a-4315-b7c9-100ba723ab86)
+
 This repository contains a carefully crafted `.htaccess` file designed to enhance the security, performance, and overall efficiency of your Apache web server. By leveraging advanced features and directives, this configuration helps ensure your website remains fast, secure, and compliant with best practices.
 
 ### Key Features
