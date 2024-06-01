@@ -32,3 +32,6 @@ We welcome and encourage contributions! If you have enhancements or suggestions,
 ---
 
 > By utilizing this `.htaccess` file, you will significantly enhance your website's performance, security, and compliance with industry best practices. Feel free to download, modify, and integrate it into your web projects for optimal results. [Apache documentation](https://httpd.apache.org/docs/)
+
+![PHP](https://img.shields.io/badge/php-8.2-blue)
+![APACHE](https://img.shields.io/badge/apache-2.4-orange)
