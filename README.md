@@ -1,4 +1,4 @@
-# Invision Power Services (IPS) Optimized .htaccess Configuration
+# Invision Power Services (IPS) Optimized .htaccess
 
 ![htaccess](https://github.com/ishayanabad/IPS-htaccess/assets/171403530/3463f58a-222a-4315-b7c9-100ba723ab86)
 
